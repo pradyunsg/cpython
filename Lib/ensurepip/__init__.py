@@ -120,27 +120,27 @@ def _disable_pip_configuration_settings():
     os.environ['PIP_CONFIG_FILE'] = os.devnull
 
 
-def bootstrap(*, root=None, upgrade=False, user=False,
+def bootstrap(*, root=None, prefix=None, upgrade=False, user=False,
               altinstall=False, default_pip=False,
               verbosity=0):
     """
     Bootstrap pip into the current Python installation (or the given root
-    directory).
+    and directory prefix).
 
     Note that calling this function will alter both sys.path and os.environ.
     """
     # Discard the return value
-    _bootstrap(root=root, upgrade=upgrade, user=user,
+    _bootstrap(root=root, prefix=prefix, upgrade=upgrade, user=user,
                altinstall=altinstall, default_pip=default_pip,
                verbosity=verbosity)
 
 
-def _bootstrap(*, root=None, upgrade=False, user=False,
+def _bootstrap(*, root=None, prefix=None, upgrade=False, user=False,
               altinstall=False, default_pip=False,
               verbosity=0):
     """
     Bootstrap pip into the current Python installation (or the given root
-    directory). Returns pip command status code.
+    and directory prefix). Returns pip command status code.
 
     Note that calling this function will alter both sys.path and os.environ.
     """
@@ -190,6 +190,8 @@ def _bootstrap(*, root=None, upgrade=False, user=False,
         args = ["install", "--no-cache-dir", "--no-index", "--find-links", tmpdir]
         if root:
             args += ["--root", root]
+        if prefix:
+            args += ["--prefix", prefix]
         if upgrade:
             args += ["--upgrade"]
         if user:
@@ -265,6 +267,11 @@ def _main(argv=None):
         help="Install everything relative to this alternate root directory.",
     )
     parser.add_argument(
+        "--prefix",
+        default=None,
+        help="Install everything using this prefix.",
+    )
+    parser.add_argument(
         "--altinstall",
         action="store_true",
         default=False,
@@ -283,6 +290,7 @@ def _main(argv=None):
 
     return _bootstrap(
         root=args.root,
+        prefix=args.prefix,
         upgrade=args.upgrade,
         user=args.user,
         verbosity=args.verbosity,
