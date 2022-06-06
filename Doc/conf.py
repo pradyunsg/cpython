@@ -69,14 +69,12 @@ master_doc = 'contents'
 # Options for HTML output
 # -----------------------
 
-# Use our custom theme.
-html_theme = 'python_docs_theme'
-html_theme_path = ['tools']
+html_theme = 'lutra'
 html_theme_options = {
-    'collapsiblesidebar': True,
-    'issues_url': '/bugs.html',
-    'license_url': '/license.html',
-    'root_include_title': False   # We use the version switcher instead.
+    'navigation_style': "subtree-document",
+    # 'issues_url': '/bugs.html',
+    # 'license_url': '/license.html',
+    # 'root_include_title': False   # We use the version switcher instead.
 }
 
 # Override stylesheet fingerprinting for Windows CHM htmlhelp to fix GH-91207
@@ -98,16 +96,15 @@ templates_path = ['tools/templates']
 
 # Custom sidebar templates, filenames relative to this file.
 html_sidebars = {
-    # Defaults taken from https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_sidebars
-    # Removes the quick search block
-    '**': ['localtoc.html', 'relations.html', 'customsourcelink.html'],
-    'index': ['indexsidebar.html'],
+    # # Defaults taken from https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_sidebars
+    # # Removes the quick search block
+    # '**': ['localtoc.html', 'relations.html', 'customsourcelink.html'],
+    # 'index': ['indexsidebar.html'],
 }
 
 # Additional templates that should be rendered to pages.
 html_additional_pages = {
     'download': 'download.html',
-    'index': 'indexcontent.html',
 }
 
 # Output an OpenSearch description file.
