@@ -1,3 +1,5 @@
+:orphan:
+
 .. highlight:: none
 
 .. _install-index:
